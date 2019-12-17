@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.listaitens.dao.ProdutoDAO;
 import com.example.listaitens.modelo.Produto;
 
 public class FormularioActivity extends AppCompatActivity {
@@ -35,6 +36,9 @@ public class FormularioActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_formulario_ok:
                 Produto produto = helper.pegaProduto();
+                ProdutoDAO dao = new ProdutoDAO(this);
+                dao.insert(produto);
+
                 Toast.makeText(FormularioActivity.this, "Produto " + produto.getNome() + " salvo com sucesso!", Toast.LENGTH_SHORT).show();
 
 

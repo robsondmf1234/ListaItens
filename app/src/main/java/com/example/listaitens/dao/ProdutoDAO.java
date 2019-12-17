@@ -1,17 +1,20 @@
 package com.example.listaitens.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.listaitens.modelo.Produto;
+
 /**
  * Created by Robson on 15/12/2019
  */
-public class AlunoDAO extends SQLiteOpenHelper {
+public class ProdutoDAO extends SQLiteOpenHelper {
 
-    public AlunoDAO(@Nullable Context context) {
+    public ProdutoDAO(@Nullable Context context) {
         super(context, "Agenda", null, 1);
     }
 
@@ -26,5 +29,17 @@ public class AlunoDAO extends SQLiteOpenHelper {
         String sql = "DROP TABLE IF EXISTS Produtos";
         db.execSQL(sql);
         onCreate(db);
+    }
+
+    //Inserindo valores no Banco
+    public void insert(Produto produto) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues dados = new ContentValues();
+        dados.put("nome", produto.getNome());
+        dados.put("qtdAtual", produto.getQtdAtual());
+        dados.put("qtdNecessaria", produto.getQtdNecessaria());
+
+        db.insert("Produtos", null, dados);
     }
 }
