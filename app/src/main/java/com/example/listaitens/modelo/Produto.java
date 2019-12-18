@@ -1,5 +1,7 @@
 package com.example.listaitens.modelo;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by Robson on 10/12/2019
  */
@@ -35,6 +37,7 @@ public class Produto {
     }
 
     public void setQtdNecessaria(String qtdNecessaria) {
+
         this.qtdNecessaria = qtdNecessaria;
     }
 
@@ -42,5 +45,9 @@ public class Produto {
         return qtdNecessaria;
     }
 
-
+    @NonNull
+    @Override
+    public String toString() {
+        return getId() + "-" + getNome();
+    }
 }

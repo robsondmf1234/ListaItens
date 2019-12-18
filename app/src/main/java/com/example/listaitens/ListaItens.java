@@ -9,6 +9,11 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.listaitens.dao.ProdutoDAO;
+import com.example.listaitens.modelo.Produto;
+
+import java.util.List;
+
 public class ListaItens extends AppCompatActivity {
 
     @Override
@@ -16,16 +21,19 @@ public class ListaItens extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_itens);
 
-        String[] alunos = {"Arroz", "Macarrão", "Café", "Açucar"};
+        ProdutoDAO dao = new ProdutoDAO(this);
+        List<Produto> produtos = dao.buscaProdutos();
+        dao.close();
+
         ListView listaItens = findViewById(R.id.lista_itens);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+        ArrayAdapter<Produto> adapter = new ArrayAdapter<Produto>(this, android.R.layout.simple_list_item_1, produtos);
         listaItens.setAdapter(adapter);
 
         Button botaoVaiPraSegunda = findViewById(R.id.btn_segundaActivity);
         botaoVaiPraSegunda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent vaiProFormulario = new Intent(ListaItens.this,FormularioActivity.class);
+                Intent vaiProFormulario = new Intent(ListaItens.this, FormularioActivity.class);
                 startActivity(vaiProFormulario);
             }
         });

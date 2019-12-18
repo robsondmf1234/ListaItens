@@ -38,10 +38,8 @@ public class FormularioActivity extends AppCompatActivity {
                 Produto produto = helper.pegaProduto();
                 ProdutoDAO dao = new ProdutoDAO(this);
                 dao.insert(produto);
-
+                dao.close();
                 Toast.makeText(FormularioActivity.this, "Produto " + produto.getNome() + " salvo com sucesso!", Toast.LENGTH_SHORT).show();
-
-
                 finish();
                 break;
         }

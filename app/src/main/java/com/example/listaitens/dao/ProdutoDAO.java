@@ -2,12 +2,16 @@ package com.example.listaitens.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
 import com.example.listaitens.modelo.Produto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Robson on 15/12/2019
@@ -41,5 +45,25 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         dados.put("qtdNecessaria", produto.getQtdNecessaria());
 
         db.insert("Produtos", null, dados);
+    }
+
+    public List<Produto> buscaProdutos() {
+        String sql = "SELECT * FROM Produtos";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+
+        List<Produto> produtos = new ArrayList<Produto>();
+        while (c.moveToNext()) {
+            Produto produto = new Produto();
+            produto.setId(c.getLong(c.getColumnIndex("id")));
+            produto.setNome(c.getString(c.getColumnIndex("nome")));
+            produto.setQtdAtual(c.getString(c.getColumnIndex("qtdAtual")));
+            produto.setQtdNecessaria(c.getString(c.getColumnIndex("qtdNecessaria")));
+
+            produtos.add(produto);
+        }
+        c.close();
+
+        return produtos;
     }
 }
