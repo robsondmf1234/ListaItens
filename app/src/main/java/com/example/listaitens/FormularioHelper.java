@@ -10,6 +10,7 @@ import com.example.listaitens.modelo.Produto;
  */
 public class FormularioHelper {
     
+    //Atributos da classe
     private final EditText campoNome;
     private final EditText campoQtdAtual;
     private final EditText campoQtdNecessaria;
