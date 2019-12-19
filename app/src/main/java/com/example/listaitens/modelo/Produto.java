@@ -6,12 +6,14 @@ import androidx.annotation.NonNull;
  * Created by Robson on 10/12/2019
  */
 public class Produto {
-
+    
+    //Atributos da Classe
     private Long id;
     private String nome;
     private String qtdAtual;
     private String qtdNecessaria;
-
+    
+    //Métodos gets e sets
     public Long getId() {
         return id;
     }
@@ -44,7 +46,8 @@ public class Produto {
     public String getQtdNecessaria() {
         return qtdNecessaria;
     }
-
+    
+    //Sobrescrevendo o método to String para uma melhor visualização na tela do Aplictaivo
     @NonNull
     @Override
     public String toString() {
