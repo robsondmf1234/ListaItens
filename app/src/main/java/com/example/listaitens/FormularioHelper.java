@@ -28,7 +28,8 @@ public class FormularioHelper {
         produto.setNome(campoNome.getText().toString());
         produto.setQtdAtual(campoQtdAtual.getText().toString());
         produto.setQtdNecessaria(campoQtdNecessaria.getText().toString());
-
+        
+        //retonando o objeto produto
         return produto;
     }
 }
