@@ -2,10 +2,15 @@ package com.example.listaitens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,10 +21,16 @@ import java.util.List;
 
 public class ListaItens extends AppCompatActivity {
 
+    private ListView listaItens;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_itens);
+
+        //Recuperando a referencia do xml
+        listaItens = findViewById(R.id.lista_itens);
+
         carregaLista();
 
         //Recuperando a referencia do botao
@@ -32,12 +43,14 @@ public class ListaItens extends AppCompatActivity {
                 startActivity(vaiProFormulario);
             }
         });
+
+        registerForContextMenu(listaItens);
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         carregaLista();
+        super.onResume();
     }
 
     private void carregaLista() {
@@ -48,11 +61,27 @@ public class ListaItens extends AppCompatActivity {
         //Fechando a conexao com o banco
         dao.close();
 
-        //Recuperando a referencia do xml
-        ListView listaItens = findViewById(R.id.lista_itens);
         //Convertendo a lista de String para view com o adapter (referencia da activity,layout para mostrar os dados, fonte dos dados)
         ArrayAdapter<Produto> adapter = new ArrayAdapter<Produto>(this, android.R.layout.simple_list_item_1, produtos);
         //Setando o adapter na lista
         listaItens.setAdapter(adapter);
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        MenuItem deletar = menu.add("Deletar");
+        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+                Produto produto = (Produto) listaItens.getItemAtPosition(info.position);
+                ProdutoDAO dao = new ProdutoDAO(ListaItens.this);
+                dao.delete(produto);
+                dao.close();
+                carregaLista();
+                return false;
+            }
+        });
+    }
+
 }

@@ -48,7 +48,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     }
 
     public List<Produto> buscaProdutos() {
-        String sql = "SELECT * FROM Produtos";
+        String sql = "SELECT * FROM Produtos;";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
 
@@ -65,5 +65,12 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         c.close();
 
         return produtos;
+    }
+
+    public void delete(Produto produto) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String[] params = {produto.getId().toString()};
+        db.delete("Produtos", "id = ?", params);
     }
 }
