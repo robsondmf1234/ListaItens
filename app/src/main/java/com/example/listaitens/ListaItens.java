@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,7 +60,7 @@ public class ListaItens extends AppCompatActivity {
         dao.close();
 
         //Convertendo a lista de String para view com o adapter (referencia da activity,layout para mostrar os dados, fonte dos dados)
-        ArrayAdapter<Produto> adapter = new ArrayAdapter<Produto>(this, android.R.layout.simple_list_item_1, produtos);
+        ArrayAdapter<Produto> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, produtos);
         //Setando o adapter na lista
         listaItens.setAdapter(adapter);
     }
