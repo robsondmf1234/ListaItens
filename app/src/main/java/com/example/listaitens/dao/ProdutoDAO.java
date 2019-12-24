@@ -16,18 +16,23 @@ import java.util.List;
 /**
  * Created by Robson on 15/12/2019
  */
+//ProdutoDao extend de SQLOpenhelper para poder trabalhar com função relativas ao SQL
 public class ProdutoDAO extends SQLiteOpenHelper {
-
+    
+    //Contrutor do ProdutoDao
     public ProdutoDAO(@Nullable Context context) {
+        //parametros passado(contexto, nome do banco de dados,arquivo para customizar o banco, versao do banco de dados)
         super(context, "Agenda", null, 1);
     }
-
+    
+    //método para criar o banco de dados
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE Produtos (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, qtdAtual TEXT, qtdNecessaria TEXT);";
         db.execSQL(sql);
     }
-
+    
+    //método onUpgrade é usado , quando o banco ja tiver sido criado e for detectado que ja tem uma versao atualizada do banco 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         String sql = "DROP TABLE IF EXISTS Produtos";
@@ -37,13 +42,17 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     //Inserindo valores no Banco
     public void insert(Produto produto) {
+        //
         SQLiteDatabase db = getWritableDatabase();
-
+        
+        //Content Values sera usado para armazenar os dados para serem inseridos no comando sql. 
         ContentValues dados = new ContentValues();
+        //Inserindo o valor na variavel dados Ex:(Chave, valor ) do map do Java.
         dados.put("nome", produto.getNome());
         dados.put("qtdAtual", produto.getQtdAtual());
         dados.put("qtdNecessaria", produto.getQtdNecessaria());
-
+        
+        //metodo para inserir informações no banco(tabela,se sera incluido linhas em branco no banco, dados == content values ,local de onde vem as informações )
         db.insert("Produtos", null, dados);
     }
 
