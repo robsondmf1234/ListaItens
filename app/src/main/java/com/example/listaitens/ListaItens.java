@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,18 @@ public class ListaItens extends AppCompatActivity {
         listaItens = findViewById(R.id.lista_itens);
 
         carregaLista();
+
+        listaItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> lista, View itemClicado, int position, long id) {
+                Produto produto = (Produto) listaItens.getItemAtPosition(position);
+                Intent intentVaiProFormulario = new Intent(ListaItens.this,FormularioActivity.class);
+
+                intentVaiProFormulario.putExtra("produto",produto);
+
+                startActivity(intentVaiProFormulario);
+            }
+        });
 
         //Recuperando a referencia do botao
         Button botaoVaiPraSegunda = findViewById(R.id.btn_segundaActivity);
@@ -67,6 +80,7 @@ public class ListaItens extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

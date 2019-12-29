@@ -44,16 +44,20 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     public void insert(Produto produto) {
         //
         SQLiteDatabase db = getWritableDatabase();
-        
-        //Content Values sera usado para armazenar os dados para serem inseridos no comando sql. 
+        ContentValues dados = pegaDadosDoProduto(produto);
+
+        //metodo para inserir informações no banco(tabela,se sera incluido linhas em branco no banco, dados == content values ,local de onde vem as informações )
+        db.insert("Produtos", null, dados);
+    }
+
+    private ContentValues pegaDadosDoProduto(Produto produto) {
+        //Content Values sera usado para armazenar os dados para serem inseridos no comando sql.
         ContentValues dados = new ContentValues();
         //Inserindo o valor na variavel dados Ex:(Chave, valor ) do map do Java.
         dados.put("nome", produto.getNome());
         dados.put("qtdAtual", produto.getQtdAtual());
         dados.put("qtdNecessaria", produto.getQtdNecessaria());
-        
-        //metodo para inserir informações no banco(tabela,se sera incluido linhas em branco no banco, dados == content values ,local de onde vem as informações )
-        db.insert("Produtos", null, dados);
+        return dados;
     }
 
     public List<Produto> buscaProdutos() {
@@ -81,5 +85,15 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
         String[] params = {produto.getId().toString()};
         db.delete("Produtos", "id = ?", params);
+    }
+
+    public void altera(Produto produto) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues dados = pegaDadosDoProduto(produto);
+
+        String[]params = {produto.getId().toString()};
+
+        db.update("Produtos",dados, "id= ?",params);
     }
 }

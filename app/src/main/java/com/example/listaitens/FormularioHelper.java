@@ -14,17 +14,21 @@ public class FormularioHelper {
     private final EditText campoNome;
     private final EditText campoQtdAtual;
     private final EditText campoQtdNecessaria;
+
+    private Produto produto;
     
     //Passando uma referencia da activity para o FormularioHelper, pode utilizar o findviewByid()
     public FormularioHelper(FormularioActivity activity) {
         campoNome = (EditText) activity.findViewById(R.id.formulario_nome);
         campoQtdAtual = (EditText) activity.findViewById(R.id.formulario_qtdAtual);
         campoQtdNecessaria = (EditText) activity.findViewById(R.id.formulario_qtdNecessaria);
+
+        //Instanciando um novo Produto
+        produto = new Produto();
     }
 
     public Produto pegaProduto() {
-        //Instanciando um novo Produto
-        Produto produto = new Produto();
+
         //Setando o nome com o valor obtido da variavel campoNome
         produto.setNome(campoNome.getText().toString());
         produto.setQtdAtual(campoQtdAtual.getText().toString());
@@ -32,5 +36,13 @@ public class FormularioHelper {
         
         //retonando o objeto produto
         return produto;
+    }
+
+    public void preencheFormulario(Produto produto) {
+        campoNome.setText(produto.getNome());
+        campoQtdAtual.setText(produto.getQtdAtual());
+        campoQtdNecessaria.setText(produto.getQtdNecessaria());
+
+        this.produto = produto;
     }
 }

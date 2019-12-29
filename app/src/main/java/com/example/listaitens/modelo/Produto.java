@@ -2,10 +2,12 @@ package com.example.listaitens.modelo;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by Robson on 10/12/2019
  */
-public class Produto {
+public class Produto implements Serializable {
 
     //Atributos da Classe
     private Long id;
