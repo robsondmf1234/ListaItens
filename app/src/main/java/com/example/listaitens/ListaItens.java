@@ -29,7 +29,8 @@ public class ListaItens extends AppCompatActivity {
 
         //Recuperando a referencia do xml
         listaItens = findViewById(R.id.lista_itens);
-
+        
+        //Método para carregar a lista de Produtos
         carregaLista();
 
         listaItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -37,7 +38,8 @@ public class ListaItens extends AppCompatActivity {
             public void onItemClick(AdapterView<?> lista, View itemClicado, int position, long id) {
                 Produto produto = (Produto) listaItens.getItemAtPosition(position);
                 Intent intentVaiProFormulario = new Intent(ListaItens.this,FormularioActivity.class);
-
+                
+                //Pendurando o produto e passando ele junto com a Intent
                 intentVaiProFormulario.putExtra("produto",produto);
 
                 startActivity(intentVaiProFormulario);
