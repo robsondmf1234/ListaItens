@@ -66,7 +66,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
 
-        List<Produto> produtos = new ArrayList<Produto>();
+        List<Produto> produtos = new ArrayList<>();
         while (c.moveToNext()) {
             Produto produto = new Produto();
             produto.setId(c.getLong(c.getColumnIndex("id")));
