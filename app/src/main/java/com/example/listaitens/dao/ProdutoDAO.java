@@ -60,6 +60,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         return dados;
     }
 
+    //método para buscar produtos
     public List<Produto> buscaProdutos() {
         String sql = "SELECT * FROM Produtos;";
         SQLiteDatabase db = getReadableDatabase();
