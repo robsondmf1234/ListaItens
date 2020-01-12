@@ -22,22 +22,29 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     //Contrutor do ProdutoDao
     public ProdutoDAO(@Nullable Context context) {
         //parametros passado(contexto, nome do banco de dados,arquivo para customizar o banco, versao do banco de dados)
-        super(context, "Agenda", null, 1);
+        super(context, "Agenda", null, 2);
     }
     
     //método para criar o banco de dados
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Produtos (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, qtdAtual TEXT, qtdNecessaria TEXT);";
+        String sql = "CREATE TABLE Produtos (id INTEGER PRIMARY KEY, " +
+                "nome TEXT NOT NULL," +
+                " qtdAtual TEXT," +
+                " qtdNecessaria TEXT," +
+                "telefone TEXT);";
         db.execSQL(sql);
     }
     
     //método onUpgrade é usado , quando o banco ja tiver sido criado e for detectado que ja tem uma versao atualizada do banco 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        String sql = "DROP TABLE IF EXISTS Produtos";
-        db.execSQL(sql);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = "";
+        switch (oldVersion){
+            case 1:
+                sql = "ALTER TABLE Produtos ADD COLUMN telefone TEXT";
+                db.execSQL(sql);//indo para versao 2
+        }
     }
 
     //Inserindo valores no Banco
@@ -57,6 +64,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         dados.put("nome", produto.getNome());
         dados.put("qtdAtual", produto.getQtdAtual());
         dados.put("qtdNecessaria", produto.getQtdNecessaria());
+        dados.put("telefone",produto.getTelefone());
         return dados;
     }
 
@@ -74,6 +82,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             produto.setNome(c.getString(c.getColumnIndex("nome")));
             produto.setQtdAtual(c.getString(c.getColumnIndex("qtdAtual")));
             produto.setQtdNecessaria(c.getString(c.getColumnIndex("qtdNecessaria")));
+            produto.setTelefone(c.getString(c.getColumnIndex("telefone")));
 
             produtos.add(produto);
         }

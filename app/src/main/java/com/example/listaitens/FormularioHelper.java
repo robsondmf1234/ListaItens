@@ -1,6 +1,5 @@
 package com.example.listaitens;
 
-import android.view.View;
 import android.widget.EditText;
 
 import com.example.listaitens.modelo.Produto;
@@ -14,6 +13,7 @@ public class FormularioHelper {
     private final EditText campoNome;
     private final EditText campoQtdAtual;
     private final EditText campoQtdNecessaria;
+    private final EditText campoTelefone;
 
     private Produto produto;
     
@@ -22,6 +22,7 @@ public class FormularioHelper {
         campoNome = (EditText) activity.findViewById(R.id.formulario_nome);
         campoQtdAtual = (EditText) activity.findViewById(R.id.formulario_qtdAtual);
         campoQtdNecessaria = (EditText) activity.findViewById(R.id.formulario_qtdNecessaria);
+        campoTelefone = (EditText) activity.findViewById(R.id.formulario_telefone);
 
         //Instanciando um novo Produto
         produto = new Produto();
@@ -33,6 +34,7 @@ public class FormularioHelper {
         produto.setNome(campoNome.getText().toString());
         produto.setQtdAtual(campoQtdAtual.getText().toString());
         produto.setQtdNecessaria(campoQtdNecessaria.getText().toString());
+        produto.setTelefone(campoTelefone.getText().toString());
         
         //retonando o objeto produto
         return produto;
@@ -42,6 +44,7 @@ public class FormularioHelper {
         campoNome.setText(produto.getNome());
         campoQtdAtual.setText(produto.getQtdAtual());
         campoQtdNecessaria.setText(produto.getQtdNecessaria());
+        campoTelefone.setText(produto.getTelefone());
 
         this.produto = produto;
     }
