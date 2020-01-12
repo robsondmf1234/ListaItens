@@ -62,6 +62,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
 
     //método para buscar produtos
     public List<Produto> buscaProdutos() {
+        //Queries para buscar todos produtos
         String sql = "SELECT * FROM Produtos;";
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
