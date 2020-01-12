@@ -28,6 +28,13 @@
             android:hint="Quantidade Necesária"
             android:inputType="number"/>
 
+        <EditText
+            android:id="@+id/formulario_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Telefone"
+            android:inputType="number"/>
+
 
     </LinearLayout>
 </ScrollView>
