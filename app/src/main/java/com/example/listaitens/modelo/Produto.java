@@ -15,6 +15,7 @@ public class Produto implements Serializable {
     private String qtdAtual;
     private String qtdNecessaria;
     private String telefone;
+    private String site;
 
     //Métodos gets e sets
     public Long getId() {
@@ -55,6 +56,14 @@ public class Produto implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
     }
 
     //Sobrescrevendo o método to String para uma melhor visualização na tela do Aplictaivo

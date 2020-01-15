@@ -22,7 +22,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     //Contrutor do ProdutoDao
     public ProdutoDAO(@Nullable Context context) {
         //parametros passado(contexto, nome do banco de dados,arquivo para customizar o banco, versao do banco de dados)
-        super(context, "Agenda", null, 2);
+        super(context, "Agenda", null, 3);
     }
     
     //método para criar o banco de dados
@@ -32,7 +32,8 @@ public class ProdutoDAO extends SQLiteOpenHelper {
                 "nome TEXT NOT NULL," +
                 " qtdAtual TEXT," +
                 " qtdNecessaria TEXT," +
-                "telefone TEXT);";
+                "telefone TEXT," +
+                "site TEXT);";
         db.execSQL(sql);
     }
     
@@ -44,6 +45,12 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             case 1:
                 sql = "ALTER TABLE Produtos ADD COLUMN telefone TEXT";
                 db.execSQL(sql);//indo para versao 2
+            case 2:
+                sql = "ALTER TABLE Produtos ADD COLUMN site TEXT";
+                db.execSQL(sql); //indo para versao 3
+
+
+
         }
     }
 
@@ -65,6 +72,8 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         dados.put("qtdAtual", produto.getQtdAtual());
         dados.put("qtdNecessaria", produto.getQtdNecessaria());
         dados.put("telefone",produto.getTelefone());
+        dados.put("site",produto.getSite());
+
         return dados;
     }
 
@@ -83,6 +92,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             produto.setQtdAtual(c.getString(c.getColumnIndex("qtdAtual")));
             produto.setQtdNecessaria(c.getString(c.getColumnIndex("qtdNecessaria")));
             produto.setTelefone(c.getString(c.getColumnIndex("telefone")));
+            produto.setSite(c.getString(c.getColumnIndex("site")));
 
             produtos.add(produto);
         }

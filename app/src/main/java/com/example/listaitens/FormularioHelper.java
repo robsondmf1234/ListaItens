@@ -14,6 +14,7 @@ public class FormularioHelper {
     private final EditText campoQtdAtual;
     private final EditText campoQtdNecessaria;
     private final EditText campoTelefone;
+    private final EditText campoSite;
 
     private Produto produto;
     
@@ -23,6 +24,7 @@ public class FormularioHelper {
         campoQtdAtual = (EditText) activity.findViewById(R.id.formulario_qtdAtual);
         campoQtdNecessaria = (EditText) activity.findViewById(R.id.formulario_qtdNecessaria);
         campoTelefone = (EditText) activity.findViewById(R.id.formulario_telefone);
+        campoSite = (EditText) activity.findViewById(R.id.formulario_site);
 
         //Instanciando um novo Produto
         produto = new Produto();
@@ -35,7 +37,8 @@ public class FormularioHelper {
         produto.setQtdAtual(campoQtdAtual.getText().toString());
         produto.setQtdNecessaria(campoQtdNecessaria.getText().toString());
         produto.setTelefone(campoTelefone.getText().toString());
-        
+        produto.setSite(campoSite.getText().toString());
+
         //retonando o objeto produto
         return produto;
     }
@@ -45,6 +48,7 @@ public class FormularioHelper {
         campoQtdAtual.setText(produto.getQtdAtual());
         campoQtdNecessaria.setText(produto.getQtdNecessaria());
         campoTelefone.setText(produto.getTelefone());
+        campoSite.setText(produto.getSite());
 
         this.produto = produto;
     }
