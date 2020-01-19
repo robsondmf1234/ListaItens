@@ -1,7 +1,9 @@
 package com.example.listaitens;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Browser;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,13 +85,26 @@ public class ListaItens extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Produto produto = (Produto) listaItens.getItemAtPosition(info.position);
+
+        MenuItem itemSite = menu.add("Visitar Site");
+        Intent intentSite = new Intent(Intent.ACTION_VIEW);
+
+        String site = produto.getSite();
+
+        if(!site.startsWith("https://")){
+            site = "http://"+site;
+        }
+
+        intentSite.setData(Uri.parse(site));
+        itemSite.setIntent(intentSite);
+
 
         MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Produto produto = (Produto) listaItens.getItemAtPosition(info.position);
                 ProdutoDAO dao = new ProdutoDAO(ListaItens.this);
                 dao.delete(produto);
                 dao.close();
