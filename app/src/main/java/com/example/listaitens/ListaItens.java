@@ -3,7 +3,6 @@ package com.example.listaitens;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,6 +85,18 @@ public class ListaItens extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Produto produto = (Produto) listaItens.getItemAtPosition(info.position);
+
+        MenuItem itemSMS = menu.add("Enviar SMS");
+        Intent intentSMS = new Intent(Intent.ACTION_VIEW);
+        intentSMS.setData(Uri.parse("sms:" + produto.getTelefone()));
+        itemSMS.setIntent(intentSMS);
+
+        //Adicionar o campo endereço antes de implementar
+        /*
+        MenuItem itemMapa = menu.add("Visualizar no Mapa");
+        Intent intentMapa = new Intent(Intent.ACTION_VIEW);
+        intentMapa.setData(Uri.parse("geo:0,0?="=produto.get))
+        */
 
         MenuItem itemSite = menu.add("Visitar Site");
         Intent intentSite = new Intent(Intent.ACTION_VIEW);
