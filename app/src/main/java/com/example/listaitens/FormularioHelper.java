@@ -15,6 +15,7 @@ public class FormularioHelper {
     private final EditText campoQtdNecessaria;
     private final EditText campoTelefone;
     private final EditText campoSite;
+    private final EditText campoEndereco;
 
     private Produto produto;
     
@@ -23,6 +24,7 @@ public class FormularioHelper {
         campoNome = (EditText) activity.findViewById(R.id.formulario_nome);
         campoQtdAtual = (EditText) activity.findViewById(R.id.formulario_qtdAtual);
         campoQtdNecessaria = (EditText) activity.findViewById(R.id.formulario_qtdNecessaria);
+        campoEndereco = (EditText)activity.findViewById(R.id.formulario_endereco);
         campoTelefone = (EditText) activity.findViewById(R.id.formulario_telefone);
         campoSite = (EditText) activity.findViewById(R.id.formulario_site);
 
@@ -36,6 +38,7 @@ public class FormularioHelper {
         produto.setNome(campoNome.getText().toString());
         produto.setQtdAtual(campoQtdAtual.getText().toString());
         produto.setQtdNecessaria(campoQtdNecessaria.getText().toString());
+        produto.setEndereco(campoEndereco.getText().toString());
         produto.setTelefone(campoTelefone.getText().toString());
         produto.setSite(campoSite.getText().toString());
 
@@ -47,6 +50,7 @@ public class FormularioHelper {
         campoNome.setText(produto.getNome());
         campoQtdAtual.setText(produto.getQtdAtual());
         campoQtdNecessaria.setText(produto.getQtdNecessaria());
+        campoEndereco.setText(produto.getEndereco());
         campoTelefone.setText(produto.getTelefone());
         campoSite.setText(produto.getSite());
 

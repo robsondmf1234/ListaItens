@@ -14,6 +14,7 @@ public class Produto implements Serializable {
     private String nome;
     private String qtdAtual;
     private String qtdNecessaria;
+    private String endereco;
     private String telefone;
     private String site;
 
@@ -48,6 +49,14 @@ public class Produto implements Serializable {
 
     public String getQtdNecessaria() {
         return qtdNecessaria;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getTelefone() {
