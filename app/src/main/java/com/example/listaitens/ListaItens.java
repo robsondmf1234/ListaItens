@@ -1,6 +1,8 @@
 package com.example.listaitens;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.listaitens.dao.ProdutoDAO;
 import com.example.listaitens.modelo.Produto;
@@ -86,17 +89,33 @@ public class ListaItens extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         final Produto produto = (Produto) listaItens.getItemAtPosition(info.position);
 
+
+        MenuItem itemLigar = menu.add("Ligar");
+        itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (ActivityCompat.checkSelfPermission(ListaItens.this, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(ListaItens.this, new String[]{Manifest.permission.CALL_PHONE}, 123);
+                } else {
+                    Intent intentLigar = new Intent(Intent.ACTION_CALL);
+                    intentLigar.setData(Uri.parse("tel:" + produto.getTelefone()));
+                    startActivity(intentLigar);
+                }
+                return false;
+            }
+        });
+
+
         MenuItem itemSMS = menu.add("Enviar SMS");
         Intent intentSMS = new Intent(Intent.ACTION_VIEW);
         intentSMS.setData(Uri.parse("sms:" + produto.getTelefone()));
         itemSMS.setIntent(intentSMS);
 
-        //Adicionar o campo endereço antes de implementar
-        /*
         MenuItem itemMapa = menu.add("Visualizar no Mapa");
         Intent intentMapa = new Intent(Intent.ACTION_VIEW);
-        intentMapa.setData(Uri.parse("geo:0,0?="=produto.get))
-        */
+        intentMapa.setData(Uri.parse("geo:0,0?q=" + produto.getEndereco()));
+        itemMapa.setIntent(intentMapa);
 
         MenuItem itemSite = menu.add("Visitar Site");
         Intent intentSite = new Intent(Intent.ACTION_VIEW);
