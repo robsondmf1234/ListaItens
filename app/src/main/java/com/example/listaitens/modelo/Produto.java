@@ -17,6 +17,8 @@ public class Produto implements Serializable {
     private String endereco;
     private String telefone;
     private String site;
+    private String caminhoFoto;
+
 
     //Métodos gets e sets
     public Long getId() {
@@ -75,6 +77,14 @@ public class Produto implements Serializable {
         this.site = site;
     }
 
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
+    }
     //Sobrescrevendo o método to String para uma melhor visualização na tela do Aplictaivo
     @NonNull
     @Override

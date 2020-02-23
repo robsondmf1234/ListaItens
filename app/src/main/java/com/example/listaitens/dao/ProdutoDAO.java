@@ -22,7 +22,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
     //Contrutor do ProdutoDao
     public ProdutoDAO(@Nullable Context context) {
         //parametros passado(contexto, nome do banco de dados,arquivo para customizar o banco, versao do banco de dados)
-        super(context, "Agenda", null, 4);
+        super(context, "Agenda", null, 5);
     }
     
     //método para criar o banco de dados
@@ -34,7 +34,8 @@ public class ProdutoDAO extends SQLiteOpenHelper {
                 " qtdNecessaria TEXT," +
                 "endereco TEXT,"+
                 "telefone TEXT," +
-                "site TEXT);";
+                "site TEXT," +
+                "caminhoFoto TEXT);";
         db.execSQL(sql);
     }
     
@@ -46,13 +47,18 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             case 1:
                 sql = "ALTER TABLE Produtos ADD COLUMN telefone TEXT";
                 db.execSQL(sql);//indo para versao 2
+
             case 2:
                 sql = "ALTER TABLE Produtos ADD COLUMN site TEXT";
                 db.execSQL(sql); //indo para versao 3
+
             case 3:
                 sql = "ALTER TABLE Produtos ADD COLUMN endereco TEXT";
-                db.execSQL(sql);
+                db.execSQL(sql);//indo paa a versao 4
 
+            case 4:
+                sql = "ALTER TABLE Produtos ADD COLUMN caminhoFoto TEXT";
+                db.execSQL(sql);//indo para a versao 5
         }
     }
 
@@ -76,6 +82,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
         dados.put("endereco",produto.getEndereco());
         dados.put("telefone",produto.getTelefone());
         dados.put("site",produto.getSite());
+        dados.put("caminhoFoto", produto.getCaminhoFoto());
 
         return dados;
     }
@@ -97,6 +104,7 @@ public class ProdutoDAO extends SQLiteOpenHelper {
             produto.setEndereco(c.getString(c.getColumnIndex("endereco")));
             produto.setTelefone(c.getString(c.getColumnIndex("telefone")));
             produto.setSite(c.getString(c.getColumnIndex("site")));
+            produto.setCaminhoFoto(c.getString(c.getColumnIndex("caminhoFoto")));
 
             produtos.add(produto);
         }

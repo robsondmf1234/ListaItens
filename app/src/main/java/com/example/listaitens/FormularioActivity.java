@@ -1,6 +1,9 @@
 package com.example.listaitens;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -9,8 +12,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -21,8 +26,10 @@ import java.io.File;
 
 public class FormularioActivity extends AppCompatActivity {
 
-    //Declarando uma classe para auxiliar na coleta dos dados dos campos 
+    public static final int CODIGO_CAMERA = 567;
+    //Declarando uma classe para auxiliar na coleta dos dados dos campos
     private FormularioHelper helper;
+    private String caminhoFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +52,26 @@ public class FormularioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                String caminhoFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+                caminhoFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
                 File arquivoFoto = new File(caminhoFoto);
                 Uri fotoURI = FileProvider.getUriForFile(FormularioActivity.this, BuildConfig.APPLICATION_ID + ".provider", arquivoFoto);
                 intentCamera.putExtra(MediaStore.EXTRA_OUTPUT,fotoURI);
-                startActivity(intentCamera);
+                startActivityForResult(intentCamera, 567);
             }
         });
     }
 
-    //Option menu é o menu que fica na parte superior direita da tela 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(resultCode == Activity.RESULT_OK) {
+            if (requestCode == CODIGO_CAMERA) {
+                //abrir a foto que foi tiradA
+                helper.carregaImagem(caminhoFoto);
+            }
+        }
+    }
+
+    //Option menu é o menu que fica na parte superior direita da tela
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Devolvendo uma instancia de um menu inflater(utilizado para transformar uma xml em uma view)

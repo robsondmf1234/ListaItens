@@ -1,6 +1,9 @@
 package com.example.listaitens;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.listaitens.modelo.Produto;
 
@@ -16,6 +19,7 @@ public class FormularioHelper {
     private final EditText campoTelefone;
     private final EditText campoSite;
     private final EditText campoEndereco;
+    private final ImageView campoFoto;
 
     private Produto produto;
     
@@ -27,6 +31,7 @@ public class FormularioHelper {
         campoEndereco = (EditText)activity.findViewById(R.id.formulario_endereco);
         campoTelefone = (EditText) activity.findViewById(R.id.formulario_telefone);
         campoSite = (EditText) activity.findViewById(R.id.formulario_site);
+        campoFoto = (ImageView) activity.findViewById(R.id.formulario_foto);
 
         //Instanciando um novo Produto
         produto = new Produto();
@@ -41,6 +46,7 @@ public class FormularioHelper {
         produto.setEndereco(campoEndereco.getText().toString());
         produto.setTelefone(campoTelefone.getText().toString());
         produto.setSite(campoSite.getText().toString());
+        produto.setCaminhoFoto((String) campoFoto.getTag());
 
         //retonando o objeto produto
         return produto;
@@ -53,7 +59,18 @@ public class FormularioHelper {
         campoEndereco.setText(produto.getEndereco());
         campoTelefone.setText(produto.getTelefone());
         campoSite.setText(produto.getSite());
+        carregaImagem(produto.getCaminhoFoto());
 
         this.produto = produto;
+    }
+
+    public void carregaImagem(String caminhoFoto) {
+        if (caminhoFoto != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(caminhoFoto);
+            Bitmap bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+            campoFoto.setImageBitmap(bitmapReduzido);
+            campoFoto.setScaleType(ImageView.ScaleType.FIT_XY);
+            campoFoto.setTag(caminhoFoto);
+        }
     }
 }
